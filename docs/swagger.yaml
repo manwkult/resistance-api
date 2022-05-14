@@ -27,7 +27,7 @@ definitions:
           type: string
         type: array
     type: object
-host: http://143.244.202.236
+host: 143.244.202.236
 info:
   contact:
     email: manuel_ldsc@hotmail.com

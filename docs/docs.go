@@ -243,9 +243,9 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "http://143.244.202.236",
+	Host:             "143.244.202.236",
 	BasePath:         "/api/v1",
-	Schemes:          []string{},
+	Schemes:          []string{"http", "https"},
 	Title:            "Swagger Resistance API",
 	Description:      "API para interceptar los mensajes encriptador recibidos por los satelites",
 	InfoInstanceName: "swagger",

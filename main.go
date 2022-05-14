@@ -23,7 +23,7 @@ import (
 // @license.name  	Apache 2.0
 // @license.url   	http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host      		http://143.244.202.236
+// @host      		143.244.202.236
 // @BasePath  		/api/v1
 func main() {
 	router := gin.Default()
