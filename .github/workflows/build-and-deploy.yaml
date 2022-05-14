@@ -1,8 +1,7 @@
 name: Golang
 
 env:
-  APPLICATION_NAME: resistance-api
-  IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APPLICATION_NAME }}:${{ github.sha }}
+  IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.APPLICATION_NAME }}:${{ github.sha }}
 
 on:
   push:
