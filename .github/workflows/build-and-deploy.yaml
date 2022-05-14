@@ -39,7 +39,7 @@ jobs:
         image: ${{ env.IMAGE }}
 
     - name: Validate Deployment
-      run: cat ./deployment/k8/deployment.yaml
+      run: cat ./deployment/deployment.yaml
 
     - name: Set Up k8s - Digital Ocean
       uses: matootie/dokube@v1.3.4
