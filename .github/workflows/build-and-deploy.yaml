@@ -1,6 +1,7 @@
 name: Golang
 
 env:
+  ENV: production
   IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.APPLICATION_NAME }}:${{ github.sha }}
 
 on:
@@ -36,6 +37,7 @@ jobs:
       with:
         files: '["./deployment/*.yaml"]'
       env:
+        env: ${{ env.ENV }}
         image: ${{ env.IMAGE }}
 
     - name: Validate Deployment

@@ -21,6 +21,9 @@ spec:
       containers:
         - name: resistance-api
           image: #{image}#
+          env:
+          - name: ENV
+            value: #{env}#
           resources:
             requests:
               memory: "64Mi"
