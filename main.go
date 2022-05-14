@@ -8,6 +8,7 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 
+	"resistance/core"
 	_ "resistance/docs"
 )
 
@@ -45,9 +46,9 @@ func main() {
 
 	v1 := router.Group("/api/v1/")
 	{
-		v1.POST("/topsecret", topSecret)
-		v1.GET("/topsecret_split", topSecretSplitGET)
-		v1.POST("/topsecret_split", topSecretSplitPOST)
+		v1.POST("/topsecret", core.TopSecret)
+		v1.GET("/topsecret_split", core.TopSecretSplitGET)
+		v1.POST("/topsecret_split", core.TopSecretSplitPOST)
 	}
 
 	router.Run(":8000")

@@ -1,4 +1,4 @@
-package main
+package core
 
 import (
 	"encoding/json"
@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// TopSecret function
 // topsecret godoc
 // @Summary      Top Secret
 // @Description  Decrypts the messages intercepted by the satellites
@@ -19,17 +20,17 @@ import (
 // @Failure      404  {object}  map[string]interface{}
 // @Failure      500  {object}  map[string]interface{}
 // @Router       /topsecret [post]
-func topSecret(c *gin.Context) {
-	var topSecret TopSecret
+func TopSecret(c *gin.Context) {
+	var secret Secret
 	decoder := json.NewDecoder(c.Request.Body)
-	err := decoder.Decode(&topSecret)
+	err := decoder.Decode(&secret)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	distances, messages := GetData(topSecret.Satellites)
+	distances, messages := GetData(secret.Satellites)
 
 	x, y := GetLocation(distances...)
 	message := GetMessage(messages...)
@@ -43,6 +44,7 @@ func topSecret(c *gin.Context) {
 	})
 }
 
+// TopSecretSplitPOST function
 // topsecret_split godoc
 // @Summary      Top Secret Split
 // @Description  Decrypts the message intercepted by the satelite
@@ -56,12 +58,13 @@ func topSecret(c *gin.Context) {
 // @Failure      404  {object}  map[string]interface{}
 // @Failure      500  {object}  map[string]interface{}
 // @Router       /topsecret_split [post]
-func topSecretSplitPOST(c *gin.Context) {
+func TopSecretSplitPOST(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"error": "No hay suficiente información",
 	})
 }
 
+// TopSecretSplitGET function
 // topsecret_split godoc
 // @Summary      Top Secret Split
 // @Description  Decrypts the message intercepted by the satelite
@@ -74,7 +77,7 @@ func topSecretSplitPOST(c *gin.Context) {
 // @Failure      404  {object}  map[string]interface{}
 // @Failure      500  {object}  map[string]interface{}
 // @Router       /topsecret_split [get]
-func topSecretSplitGET(c *gin.Context) {
+func TopSecretSplitGET(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "top secret split get",
 	})

@@ -1,4 +1,4 @@
-package main
+package core
 
 // Resistance struct.
 type Resistance struct {
@@ -19,6 +19,6 @@ type Transmitter struct {
 }
 
 // Top Secret struct.
-type TopSecret struct {
+type Secret struct {
 	Satellites []Satelite `json:"satellites"`
 }
