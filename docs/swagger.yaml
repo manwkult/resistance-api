@@ -1,0 +1,158 @@
+basePath: v1
+definitions:
+  main.Satelite:
+    properties:
+      distance:
+        type: number
+      message:
+        items:
+          type: string
+        type: array
+      name:
+        type: string
+    type: object
+  main.TopSecret:
+    properties:
+      satellites:
+        items:
+          $ref: '#/definitions/main.Satelite'
+        type: array
+    type: object
+  main.Transmitter:
+    properties:
+      distance:
+        type: number
+      message:
+        items:
+          type: string
+        type: array
+    type: object
+host: localhost:8000/api/
+info:
+  contact:
+    email: manuel_ldsc@hotmail.com
+    name: API Resistance
+    url: http://www.swagger.io/support
+  description: API para interceptar los mensajes encriptador recibidos por los satelites
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Resistance API
+  version: "1.0"
+paths:
+  /topsecret:
+    post:
+      consumes:
+      - application/json
+      description: Decrypts the messages intercepted by the satellites
+      parameters:
+      - description: top secret
+        in: body
+        name: topSecret
+        required: true
+        schema:
+          $ref: '#/definitions/main.TopSecret'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: map
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Top Secret
+      tags:
+      - Resistance
+  /topsecret_split:
+    get:
+      consumes:
+      - application/json
+      description: Decrypts the message intercepted by the satelite
+      parameters:
+      - description: satelite name
+        in: path
+        name: satelite_name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: map
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Top Secret Split
+      tags:
+      - Resistance
+    post:
+      consumes:
+      - application/json
+      description: Decrypts the message intercepted by the satelite
+      parameters:
+      - description: satelite name
+        in: path
+        name: satelite_name
+        required: true
+        type: string
+      - description: transmitter
+        in: body
+        name: transmitter
+        required: true
+        schema:
+          $ref: '#/definitions/main.Transmitter'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: map
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Top Secret Split
+      tags:
+      - Resistance
+swagger: "2.0"

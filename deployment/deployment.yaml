@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resistance-api
+  labels:
+    app: resistance-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: resistance-api
+  template:
+    metadata:
+      labels:
+        app: resistance-api
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 3000
+        fsGroup: 2000
+      containers:
+        - name: resistance-api
+          image: #{image}#
+          envFrom:
+            - configMapRef:
+                name: environment
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "20m"
+            limits:
+              memory: "128Mi"
+              cpu: "80m"
+          livenessProbe:
+            httpGet:
+              path: /api/ping
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 3
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /api/ping
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 3
+            successThreshold: 1
+            failureThreshold: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: resistance-api
+  labels:
+    app: resistance-api
+spec:
+  selector:
+    app: resistance-api
+  ports:
+  - name: http
+    port: 8000
+    protocol: TCP
+    targetPort: 8000
+  type: LoadBalancer
