@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
@@ -21,13 +23,17 @@ import (
 // @license.name  	Apache 2.0
 // @license.url   	http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host      		localhost:8000/api/
-// @BasePath  		v1
+// @host      		http://143.244.202.236
+// @BasePath  		/api/v1
 func main() {
 	router := gin.Default()
 	router.Use(cors.Default())
+	var url = ginSwagger.URL("http://localhost:8000/swagger/doc.json")
 
-	url := ginSwagger.URL("http://localhost:8000/swagger/doc.json")
+	if os.Getenv("ENV") == "production" {
+		url = ginSwagger.URL("http://143.244.202.236/swagger/doc.json")
+	}
+
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 
 	ping := router.Group("/api/ping")

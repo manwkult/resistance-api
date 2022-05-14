@@ -1,4 +1,4 @@
-basePath: v1
+basePath: /api/v1
 definitions:
   main.Satelite:
     properties:
@@ -27,7 +27,7 @@ definitions:
           type: string
         type: array
     type: object
-host: localhost:8000/api/
+host: http://143.244.202.236
 info:
   contact:
     email: manuel_ldsc@hotmail.com
