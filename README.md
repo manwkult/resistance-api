@@ -86,7 +86,7 @@ go run .
 
 Estando el proyecto ejecutado ingresa al link
 
-[Rhttp://localhost:8000/swagger/index.html](http://localhost:8000/swagger/index.html)
+[http://localhost:8000/swagger/index.html](http://localhost:8000/swagger/index.html)
 
 
 ## Arquitectura
