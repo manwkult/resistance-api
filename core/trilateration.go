@@ -1,8 +1,6 @@
 package core
 
-import (
-	"strings"
-)
+import "strings"
 
 var resistances = []Resistance{
 	{Name: "Kenobi", Location: []float64{-500, -200}},
@@ -49,27 +47,54 @@ func GetLocation(distances ...float64) (x, y float64) {
 // input: el mensaje tal cual es recibido en cada satélite
 // output: el mensaje tal cual lo genera el emisor del mensaje
 func GetMessage(messages ...[]string) (message string) {
-	union := []string{}
+	union := [][]string{}
 
 	for _, message := range messages {
-		union = append(union, message...)
+		union = append(union, message)
 	}
 
 	message = DecryptMessage(union)
 	return
 }
 
-func DecryptMessage(s []string) string {
+func DecryptMessage(messages [][]string) (message string) {
 	inResult := make(map[string]bool)
-	var result []string
-	for _, str := range s {
-		if len(str) > 0 {
-			if _, ok := inResult[str]; !ok {
-				inResult[str] = true
-				result = append(result, str)
+	var words []string
+	var value string
+
+	var index int = 0
+	var max int = 0
+
+	for indexMessage, message := range messages {
+		if len(message) > max {
+			max = len(message)
+			index = indexMessage
+		}
+	}
+
+	for i, text := range messages[index] {
+		for j, message := range messages {
+			value = text
+			if j != index {
+				for k, word := range message {
+					if i == k {
+						if value == "" && word != "" {
+							value = word
+						}
+
+						if _, ok := inResult[value]; !ok && value != "" {
+							inResult[value] = true
+
+							words = append(words, value)
+
+						}
+					}
+				}
 			}
 		}
 	}
 
-	return strings.Join(result[:], ",")
+	message = strings.Join(words[:], " ")
+
+	return
 }
