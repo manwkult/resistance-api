@@ -9,7 +9,7 @@ var resistances = []Resistance{
 }
 
 // input: los satélites que se recibieron en el mensaje
-// output: las distancias al emisor de cada satélite
+// output: las distancias al emisor de cada satélite y los mensajes recibidos
 func GetData(satellities []Satelite) (distances []float64, messages [][]string) {
 	for _, satelite := range satellities {
 		distances = append(distances, satelite.Distance)
@@ -48,15 +48,13 @@ func GetLocation(distances ...float64) (x, y float64) {
 // output: el mensaje tal cual lo genera el emisor del mensaje
 func GetMessage(messages ...[]string) (message string) {
 	union := [][]string{}
-
-	for _, message := range messages {
-		union = append(union, message)
-	}
-
+	union = append(union, messages...)
 	message = DecryptMessage(union)
 	return
 }
 
+// input: la matriz de los mensajes tal cual son recibidos en cada satélite
+// output: el mensaje desifrado
 func DecryptMessage(messages [][]string) (message string) {
 	inResult := make(map[string]bool)
 	var words []string
